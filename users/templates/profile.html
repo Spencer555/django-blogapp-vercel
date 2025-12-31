@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-xl mx-auto mt-10 px-4">
+  <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+    
+    <!-- Profile Title -->
+    <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-6 border-b pb-3">👤 My Profile</h2>
+
+    <!-- Profile Image -->
+    <div class="flex justify-center mb-6">
+      <img
+        src="{{ profiles.image.url }}"
+        alt="{{ profiles.user.username }}"
+        class="w-32 h-32 rounded-full border-4 border-blue-500 shadow-md object-cover"
+      />
+    </div>
+
+    <!-- User Info -->
+    <div class="space-y-4 text-gray-700 text-lg">
+      <p class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+             d="M5.121 17.804A1.5 1.5 0 016 17h12a1.5 1.5 0 01.879.804M12 3v1m0 4v1m0 4v1m0 4v1"/></svg>
+        <span><strong>Username:</strong> {{ profiles.user.username }}</span>
+      </p>
+
+      <p class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+             d="M16 12h2a2 2 0 002-2V7a2 2 0 00-2-2h-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v1H4a2 2 0 00-2 2v3a2 2 0 002 2h2v1a2 2 0 002 2h4a2 2 0 002-2v-1z"/></svg>
+        <span><strong>Email:</strong> {{ profiles.user.email }}</span>
+      </p>
+    </div>
+
+    <!-- Update Profile Button -->
+    {% if profiles.user == user %}
+    <div class="mt-8">
+      <a href="{% url 'update_profile' profiles.id %}"
+         class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition duration-200">
+        ✏️ Update Profile
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}

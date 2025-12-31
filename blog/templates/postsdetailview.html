@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+
+  <!-- Cover Image -->
+  <div class="h-64 w-full bg-gray-200 overflow-hidden">
+    <img src="{{ posts.creator.profile.image.url }}" alt="Cover"
+         class="object-cover w-full h-full" />
+  </div>
+
+  <!-- Post Content -->
+  <div class="p-6 sm:p-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 leading-tight">
+      {{ posts.title|capfirst }}
+    </h1>
+    <p class="text-gray-700 text-lg leading-relaxed">
+      {{ posts.body }}
+    </p>
+  </div>
+
+  <!-- Author & Meta -->
+  <div class="border-t px-6 sm:px-8 py-4 flex items-center justify-between flex-wrap bg-gray-50">
+    <div class="flex items-center gap-4 mb-2 sm:mb-0">
+      <img src="{{ posts.creator.profile.image.url }}" alt="Author"
+           class="w-12 h-12 rounded-full object-cover border-2 border-primary shadow" />
+      <div>
+        <p class="text-sm text-gray-500">Written by</p>
+        <p class="font-semibold text-gray-800">@{{ posts.creator|capfirst }}</p>
+      </div>
+    </div>
+    <div class="text-sm text-gray-500">
+      <p>Date Posted</p>
+      <p class="font-medium">{{ posts.created|date:"F d, Y" }}</p>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  {% if posts.creator == user %}
+    <div class="border-t px-6 sm:px-8 py-4 flex flex-col sm:flex-row gap-4 bg-white">
+      <a href="{% url 'post-update' posts.id %}"
+         class="w-full text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg shadow hover:opacity-90 transition">
+        ✏️ Update
+      </a>
+      <a href="{% url 'post-delete' posts.id %}"
+         class="w-full text-center px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-lg shadow hover:opacity-90 transition">
+        🗑️ Delete
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock content %}
