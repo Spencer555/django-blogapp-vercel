@@ -149,7 +149,7 @@ STATIC_URL = config('STATIC_URL')
 
 STORAGES = {
     "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "BACKEND": config("STORAGES_BACKEND"),
         "OPTIONS": {
             "bucket_name": config('BUCKET_NAME'),
             "region_name": config('REGION_NAME'),
@@ -160,7 +160,7 @@ STORAGES = {
         },
     },
     "staticfiles":{
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "BACKEND": config('STORAGES_BACKEND'),
         "OPTIONS": {
             "bucket_name": config('BUCKET_NAME'),
             "region_name": config('REGION_NAME'),
@@ -172,3 +172,14 @@ STORAGES = {
 }
 
 STATIC_URL = "/static/"
+
+
+if os.environ.get("DISABLE_S3") == "True":
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
